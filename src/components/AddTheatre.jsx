@@ -18,17 +18,10 @@ const initialFormdata = {
 
 const AddTheatre = () => {
 
-  let [formdata, setFormdata] = useState([initialFormdata]);
-  let [cities, setCities] = useState([]);
+  let [formdata, setFormdata] = useState(initialFormdata);
   let [screenArr, setScreenArr] = useState([]);
 
-  // const updateScreenArr = (newScreen) => {
-  //   setScreenArr(newScreen);
-  //   setFormdata
-  
-  //  // console.log(seats);
-  // };
-
+//Handle submit for Add Theatre Array
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Formdata: " + JSON.stringify(formdata));
@@ -41,6 +34,8 @@ const AddTheatre = () => {
     }
   };
 
+  //Handle Input Change for Add Theatre Array
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormdata({
@@ -49,9 +44,9 @@ const AddTheatre = () => {
     });
   };
 
+//Handling Screen components----------------------------
 
-
-  const [screenCount, setScreenCount] = useState(1); // Initial count
+  const [screenCount, setScreenCount] = useState(1);
 
   const addComponent = () => {
     setScreenCount(screenCount + 1);
@@ -68,23 +63,6 @@ const AddTheatre = () => {
   };
 
 
-//   const updateScreenArr = useCallback((index, newData) => {
-//     setScreenArr((prevData) => {
-//       const updatedData = [...prevData];
-//       updatedData[index] = newData;
-//       return updatedData;
-//     }
-    
-  
-//   );
-//   }, []);
-
-//   setFormdata(prevFormdata => ({
-//     ...prevFormdata,
-//     screens: screenArr // Directly assign screenArr to formdata.screens
-//   }));
-// }, [screenArr]);
-
 const updateScreenArr = useCallback((index, newData) => {
   setScreenArr(prevScreens => {
     const updatedScreens = [...prevScreens];
@@ -92,23 +70,59 @@ const updateScreenArr = useCallback((index, newData) => {
     return updatedScreens;
   });
 
-  // Update formdata with screenArr
-  setFormdata(prevFormdata => ({
-    ...prevFormdata,
-    screens: screenArr // Directly assign screenArr to formdata.screens
-  }));
 }, []);
   
 
+ // Synchronize screenArr with formdata
+ useEffect(() => {
+  setFormdata((prevFormdata) => ({
+    ...prevFormdata,
+    screens: screenArr
+  }));
+}, [screenArr]);
 
 
+//Printing formdata-----------------------------------------------------------------
     useEffect(() => {
     const intervalId = setInterval(() => {
-      console.log(JSON.stringify(formdata));
+      console.log(formdata);
     }, 5000);
     
     return () => clearInterval(intervalId);
   }, [formdata]); 
+
+
+// Handling Cities dropdown------------------------------------------
+
+
+const [selectedCityOption, setSelectedCityOption] = useState('');
+const [citiesOptions, setCitiesOptions] = useState([]);
+useEffect(() => {
+  fetchCities();
+}, []);
+
+const fetchCities = async () => {
+  try {
+    const result = await getData('city/cities');
+    setCitiesOptions(result);
+    console.log("city")
+    console.log(JSON.stringify(result));
+  } catch (error) {
+    console.error('Error fetching cities:', error);
+  }
+};
+
+// Handle change event for select
+const handleCityOptionsChange = (event) => {
+  setSelectedCityOption(event.target.value);
+  console.log(event.target.value)
+  setFormdata((prevFormdata) => ({
+    ...prevFormdata,
+    cityId: event.target.value
+  }));
+};
+
+
 
 
 
@@ -140,14 +154,14 @@ const updateScreenArr = useCallback((index, newData) => {
             <select
               id="cityId"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              value={formdata.cityId}
-              onChange={handleInputChange}
+              value={selectedCityOption}
+              onChange={handleCityOptionsChange}
               name="cityId"
               required
             >
               <option value="">Select City</option>
-              {cities.map((city, index) => (
-                <option key={index} value={city.cityId}>
+              {citiesOptions.map((city, index) => (
+                <option key={city.id} value={city.id}>
                   {city.cityName}
                 </option>
               ))}
@@ -201,13 +215,15 @@ const updateScreenArr = useCallback((index, newData) => {
 
         {}
 
+        <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+       
       </form>
 
       <div className='w-1/2'>
 
       </div>
 
-
+       
 
 
     </div>
