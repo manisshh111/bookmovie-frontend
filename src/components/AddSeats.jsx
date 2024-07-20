@@ -62,22 +62,25 @@ const AddSeats = ({ updateSeatArr }) => {
 
 const [selectedCategoryOption, setSelectedCategoryOption] = useState('');
 const [categoryOptions, setCategoryOptions] = useState([]);
-useEffect(() => {
-  fetchCategories();
-}, []);
 
 const fetchCategories = async () => {
   try {
     const result = await getData('category/categories');
     setCategoryOptions(result);
-    console.log(JSON.stringify(result));
-    console.log(JSON.stringify(categoryOptions));
+    console.log("Result"+JSON.stringify(result)); // Logs the fetched result
   } catch (error) {
-    console.error('Error fetching cities:', error);
+    console.error('Error fetching categories:', error);
   }
 };
 
+useEffect(() => {
+  fetchCategories();
+}, []);
 
+useEffect(() => {
+  // Log the updated state
+  console.log("categoryOptions"+JSON.stringify(categoryOptions));
+}, [categoryOptions]);
 
 
 
@@ -96,7 +99,7 @@ const fetchCategories = async () => {
               <option value="">Seat Category</option>
               {categoryOptions.map((category, index) => (
                 <option key={index} value={category.id}>
-                  {category.name}
+                  {category.categoryName}
                 </option>
               ))}
             </select>
