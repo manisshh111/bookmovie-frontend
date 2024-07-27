@@ -41,24 +41,6 @@ const AddSeats = ({ updateSeatArr }) => {
   };
 
 
-// Handling Categories option dropdown------------------------------------------
-
-// const [categories, setCategories] = useState([]);
-// const [selectedCategoryOption, setSelectedCategoryOption] = useState('');
-
-// useEffect(() => {
-//   fetchCategories();
-// }, []);
-
-// const fetchCategories = async () => {
-//   try {
-//     const res = await getData('category/categories'); 
-//     setCategories(res);
-//     console.log(res);
-//   } catch (error) {
-//     console.error('Error fetching categories:', error);
-//   }
-// };
 
 const [selectedCategoryOption, setSelectedCategoryOption] = useState('');
 const [categoryOptions, setCategoryOptions] = useState([]);

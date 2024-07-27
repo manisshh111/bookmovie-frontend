@@ -6,6 +6,7 @@ import AddTheatre from './components/AddTheatre';
 import AddCategory from './components/AddCategory';
 import AddMovie from './components/AddMovie';
 import AddScreen from './components/AddScreen';
+import AddShow from './components/show/AddShow'
 
 function App() {
 
@@ -18,8 +19,9 @@ function App() {
       {/* <AddTheatre/> */}
       {/* <AddCategory/> */}
       {/* <AddMovie/> */}
-      <AddTheatre/>
+      {/* <AddTheatre/> */}
       {/* <AddScreen/> */}
+      <AddShow/>
     </div>
   );
 }
