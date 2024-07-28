@@ -9,6 +9,7 @@ const initialFormdata = {
     description: "",
     rating: null,
     duration: null,
+    posterImageUrl:''
 
 };
 
@@ -102,7 +103,14 @@ const AddMovie = () => {
                         type="text" id="duration" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Duration" required />
                 </div>
 
-             
+                <div className="mb-5">
+                    <input
+                        value={formdata.posterImageUrl}
+                        onChange={handleInputChange}
+                        name="posterImageUrl"
+
+                        type="text" id="posterImageUrl" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Poster Image URL" required />
+                </div>
 
                 
 
@@ -119,6 +127,7 @@ const AddMovie = () => {
                             <th className="py-2 px-4 border-b border-gray-200">Description</th>
                             <th className="py-2 px-4 border-b border-gray-200">Rating</th>
                             <th className="py-2 px-1 border-b border-gray-200">Duration</th>
+                            <th className="py-2 px-1 border-b border-gray-200">PosterImageURL</th>
                             <th className="py-2 px-1 border-b border-gray-200">Edit</th>
                             <th className="py-2 px-1 border-b border-gray-200">Delete</th>
 
@@ -129,9 +138,10 @@ const AddMovie = () => {
                         {movies.map((movie, index) => (
                             <tr key={index}>
                                 <td className="py-2 px-4 border-b border-gray-200">{movie.name}</td>
-                                <td className="py-2 px-4 border-b border-gray-200">{movie.description}</td>
+                                <td className="py-2 px-4 border-b border-gray-200">{movie.description ? `${movie.description.substring(0, 15)}...` : ''}</td>
                                 <td className="py-2 px-4 border-b border-gray-200">{movie.rating}</td>
                                 <td className="py-2 px-4 border-b border-gray-200">{movie.duration}</td>
+                                <td className="py-2 px-4 border-b border-gray-200">{movie.posterImageUrl ? `${movie.posterImageUrl.substring(0, 15)}...` : ''}</td>
 
                                 <td className="py-2 px-1 border-b border-gray-200"><button type="button" class="text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Edit</button></td>
                                 <td className="py-2 px-1 border-b border-gray-200"> <button type="button" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Delete</button></td>

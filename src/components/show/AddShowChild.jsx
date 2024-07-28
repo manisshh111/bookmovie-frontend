@@ -4,10 +4,9 @@ import AddSeats from '../../components/AddSeats';
 import CategPrice from './CategPrice';
 
 const showChildFormData = {
-  date: '25-02-1998',
+  startTime: '',
   movieId: "",
   screenId: "",
-  startTime: "",
   categPrice: [
     {
       categoryId: "",
@@ -125,7 +124,7 @@ const AddShowChild = ({ index, updateShowChildArr, theatreId }) => {
     }));
   }, [categPriceArr]);
 
-  
+
   // Fetch categories when the component mounts
   useEffect(() => {
     const fetchCategories = async () => {
@@ -153,13 +152,13 @@ const AddShowChild = ({ index, updateShowChildArr, theatreId }) => {
 
         <div className='flex flex-row p-2 items-start gap-4'>
           {/* //date picker */}
-          <input type="date" id="date" name="date"
+          <input type="datetime-local" id="startTime" name="startTime"
             className="w-1/4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            value={formdata.date}
+            value={formdata.startTime}
             onChange={(event) => {
               setFormdata((prevFormdata) => ({
                 ...prevFormdata,
-                date: event.target.value
+                startTime: event.target.value
               }));
             }}
           />
@@ -196,7 +195,7 @@ const AddShowChild = ({ index, updateShowChildArr, theatreId }) => {
             ))}
           </select>
 
-          {/* Time Picker */}
+          {/* Time Picker
           <input
             type="time"
             id="time"
@@ -209,7 +208,7 @@ const AddShowChild = ({ index, updateShowChildArr, theatreId }) => {
                 startTime: event.target.value
               }));
             }}
-          />
+          /> */}
 
           {/* //dynamic categPrice[] */}
         </div>

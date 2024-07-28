@@ -9,9 +9,8 @@ const initialFormdata = {
   shows: [
     {
       screenId:"",
-      date: "",
+      startTime: "",
       movieId:"",
-      startTime:"",
       categoryVsPrice:[
         {
             categoryId:"",
@@ -44,7 +43,7 @@ const AddShow = () => {
       console.log("Formdata: " + JSON.stringify(formdata));
   
       try {
-        const res = await postData("show/add", formdata);
+        const res = await postData("show/addShows", formdata);
         console.log("Response: " + JSON.stringify(res));
       } catch (error) {
         console.error("Error submitting data: ", error);
