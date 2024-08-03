@@ -2,20 +2,17 @@ import React, { useEffect, useState } from 'react'
 import { getData } from '../api-integration/api';
 import ShowMovieCard from './ShowMovieCard';
 
-const initialFormdata = {
-  cityId: ""
-};
+
 
 const Homepage = () => {
 
-  const [formdata, setFormdata] = useState(initialFormdata);
   const [movies, setMovies] = useState([]);
 
 
   // Handling Cities dropdown------------------------------------------
 
 
-  const [selectedCityOption, setSelectedCityOption] = useState('');
+  const [selectedCityOption, setSelectedCityOption] = useState(0);
   const [citiesOptions, setCitiesOptions] = useState([]);
 
 
@@ -37,11 +34,8 @@ const Homepage = () => {
   // Handle change event for select
   const handleCityOptionsChange = (event) => {
     setSelectedCityOption(event.target.value);
-    console.log(event.target.value)
-    setFormdata((prevFormdata) => ({
-      ...prevFormdata,
-      cityId: event.target.value
-    }));
+    console.log("Selected City"+event.target.value)
+    
   };
 
 
@@ -91,7 +85,7 @@ const Homepage = () => {
         <div className='grid grid-cols-4 gap-4 w-full p-10'>
 
           {movies.map((movie) => (
-            <ShowMovieCard key={movie.id} movie={movie} />
+            <ShowMovieCard key={movie.id} movie={movie} cityId={selectedCityOption} />
           ))}
 
 

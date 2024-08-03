@@ -1,0 +1,19 @@
+{
+    "movieName": "KGF Chapter 3",
+    "cityName": "Siliguri",
+    "theatres": [
+        {
+            "theatreName": "Carnival Cinemas",
+            "shows": [
+                {
+                    "showId": 256,
+                    "startTime": "2024-08-03T23:16:00"
+                },
+                {
+                    "showId": 257,
+                    "startTime": "2024-08-03T23:16:00"
+                }
+            ]
+        }
+    ]
+}

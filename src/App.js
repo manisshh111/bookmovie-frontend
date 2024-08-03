@@ -11,6 +11,7 @@ import AdminDashboard from './components/Dashboard/AdminDashboard';
 import { Route, Routes } from 'react-router-dom';
 import NavBar from './components/NavBar';
 import ShowTheatres from './components/Booking/ShowTheatres';
+import SelectSeat from './components/Booking/SelectSeat';
 
 function App() {
 
@@ -29,6 +30,7 @@ function App() {
     <Route path='/cities' element={<AddCity/>} />
     <Route path='/categories' element={<AddCategory/>} />
     <Route path='/home/movie/:movie' element={<ShowTheatres/>}/>
+    <Route path='/home/movie/book/:showId' element={<SelectSeat/>}/>
 
 
     </Routes>
