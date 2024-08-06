@@ -12,6 +12,7 @@ import { Route, Routes } from 'react-router-dom';
 import NavBar from './components/NavBar';
 import ShowTheatres from './components/Booking/ShowTheatres';
 import SelectSeat from './components/Booking/SelectSeat';
+import SeatLayout from './components/Booking/SeatLayout';
 
 function App() {
 
@@ -22,7 +23,7 @@ function App() {
     <div className="App">
       <NavBar/>
     <Routes>
-    <Route path='/home' element={<Homepage/>} />
+    <Route path='/' element={<Homepage/>} />
     <Route path='/admin' element={<AdminDashboard/>} />
     <Route path='/shows' element={<AddShow/>} />
     <Route path='/theatres' element={<AddTheatre/>} />
@@ -30,7 +31,7 @@ function App() {
     <Route path='/cities' element={<AddCity/>} />
     <Route path='/categories' element={<AddCategory/>} />
     <Route path='/home/movie/:movie' element={<ShowTheatres/>}/>
-    <Route path='/home/movie/book/:showId' element={<SelectSeat/>}/>
+    <Route path='/home/movie/book/:showId' element={<SeatLayout/>}/>
 
 
     </Routes>

@@ -21,7 +21,8 @@ const initialShowTheatreFormData = {
 
 const ShowTheatres = () => {
   // Get today's date in YYYY-MM-DD format
-  const today = new Date().toISOString().split('T')[0];
+  //const today = new Date().toISOString().split('T')[0];
+  const today = new Date('2024-08-10').toISOString().split('T')[0];
 
   const [showTheatreFormData, setShowTheatreFormData] = useState(initialShowTheatreFormData);
   const [selectedDate, setSelectedDate] = useState(today); 
@@ -115,7 +116,7 @@ const ShowTheatres = () => {
               </div>
             ))
           ) : (
-            <p>No theatres or shows available for the selected date.</p>
+            <p>No shows available for the selected date.</p>
           )}
         </div>
        

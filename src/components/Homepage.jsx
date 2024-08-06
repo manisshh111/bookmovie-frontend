@@ -11,19 +11,21 @@ const Homepage = () => {
 
   // Handling Cities dropdown------------------------------------------
 
-
-  const [selectedCityOption, setSelectedCityOption] = useState(0);
   const [citiesOptions, setCitiesOptions] = useState([]);
+  const [selectedCityOption, setSelectedCityOption] = useState();
+  
 
 
   useEffect(() => {
     fetchCities();
+    
   }, []);
 
   const fetchCities = async () => {
     try {
       const result = await getData('city/cities');
       setCitiesOptions(result);
+      setSelectedCityOption((result[1]).id)
       console.log("city")
       console.log(JSON.stringify(result));
     } catch (error) {

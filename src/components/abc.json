@@ -1,17 +1,33 @@
 {
+    "showId": 402,
     "movieName": "KGF Chapter 3",
+    "screenName": "Screen-1",
+    "theatreName": "Carnival Cinemas",
     "cityName": "Siliguri",
-    "theatres": [
+    "startTime": "2024-08-10T17:45:00",
+    "categSeatsList": [
         {
-            "theatreName": "Carnival Cinemas",
-            "shows": [
+            "categPrice": {
+                "categoryId": 1,
+                "categoryName": "Gold",
+                "price": 300
+            },
+            "rowVsSeats": [
                 {
-                    "showId": 256,
-                    "startTime": "2024-08-03T23:16:00"
-                },
-                {
-                    "showId": 257,
-                    "startTime": "2024-08-03T23:16:00"
+                    "row": "A",
+                    "showSeats": [
+                        {
+                            "id": 97934,
+                            "seatNumber": "A1",
+                            "category": {
+                                "id": 1,
+                                "categoryName": "Gold"
+                            },
+                            "booking": null,
+                            "price": 300,
+                            "booked": false
+                        }
+                    ]
                 }
             ]
         }

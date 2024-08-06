@@ -15,32 +15,32 @@ const AdminDashboard = () => {
     <div className='grid grid-cols-4 gap-4 w-full p-10'>
       
       <Link to="/shows">
-      <div className='w-full h-24 bg-red-200 border border-black rounded hover:bg-red-100 cursor-pointer flex justify-center items-center text-lg font-bold text-slate-500 hover:text-black'>
+      <div className='w-full h-24 bg-white border-black rounded hover:bg-red-100 cursor-pointer flex justify-center items-center text-lg font-bold text-slate-500 hover:text-black'>
         Shows
       </div>
       </Link>
        
       <Link to="/theatres">
-      <div className='w-full h-24 bg-red-200 border border-black rounded hover:bg-red-100 cursor-pointer flex justify-center items-center text-lg font-bold text-slate-500 hover:text-black'>
+      <div className='w-full h-24 bg-white border border-black rounded hover:bg-red-100 cursor-pointer flex justify-center items-center text-lg font-bold text-slate-500 hover:text-black'>
        Theatres
       </div>
       </Link>
 
       <Link to="/movies">
-      <div className='w-full h-24 bg-red-200 border border-black rounded hover:bg-red-100 cursor-pointer flex justify-center items-center text-lg font-bold text-slate-500 hover:text-black'>
+      <div className='w-full h-24 bg-white border border-black rounded hover:bg-red-100 cursor-pointer flex justify-center items-center text-lg font-bold text-slate-500 hover:text-black'>
         Movies
       </div>
       </Link>
 
       <Link to="/cities">
-      <div className='w-full h-24 bg-red-200 border border-black rounded hover:bg-red-100 cursor-pointer flex justify-center items-center text-lg font-bold text-slate-500 hover:text-black'>
+      <div className='w-full h-24 bg-white border border-black rounded hover:bg-red-100 cursor-pointer flex justify-center items-center text-lg font-bold text-slate-500 hover:text-black'>
         Cities
       </div>
       </Link>
 
 
       <Link to="/categories">
-      <div className='w-full h-24 bg-red-200 border border-black rounded hover:bg-red-100 cursor-pointer flex justify-center items-center text-lg font-bold text-slate-500 hover:text-black'>
+      <div className='w-full h-24 bg-white border border-black rounded hover:bg-red-100 cursor-pointer flex justify-center items-center text-lg font-bold text-slate-500 hover:text-black'>
        Categories
       </div>
       </Link>
