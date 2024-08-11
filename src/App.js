@@ -13,6 +13,8 @@ import NavBar from './components/NavBar';
 import ShowTheatres from './components/Booking/ShowTheatres';
 import SelectSeat from './components/Booking/SelectSeat';
 import SeatLayout from './components/Booking/SeatLayout';
+import PaymentPage from './components/Booking/PaymentPage';
+import Ticket from './components/Booking/Ticket';
 
 function App() {
 
@@ -32,7 +34,8 @@ function App() {
     <Route path='/categories' element={<AddCategory/>} />
     <Route path='/home/movie/:movie' element={<ShowTheatres/>}/>
     <Route path='/home/movie/book/:showId' element={<SeatLayout/>}/>
-
+    <Route path='/home/movie/payment' element={<PaymentPage/>}/>
+    <Route path='/home/movie/ticket' element={<Ticket/>}/>
 
     </Routes>
   </div>

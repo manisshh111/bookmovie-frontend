@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { json, useLocation } from 'react-router-dom';
+import { json, useLocation, useNavigate } from 'react-router-dom';
 import { getData } from '../../api-integration/api';
 
 const initialFormData = {
@@ -38,13 +38,22 @@ const initialFormData = {
   ]
 }
 
+const initialFormData2 ={
+  "showId": null,
+  "movieName": "",
+  "screenName": "",
+  "theatreName": "",
+  "cityName": "",
+  "startTime": "",
+  "selectedSeats":[],
+  "totalPrice":""
+}
+
 const SeatLayout = () => {
   const location = useLocation();
   const showId = (location.state?.show).showId;
 
   const [formData, setFormdata] = useState(initialFormData);
-
-
 
   useEffect(() => {
     fetchSeatLayoutData();
@@ -110,6 +119,37 @@ const SeatLayout = () => {
     console.log("Price: "+totalPrice)
   
   }, [selectedSeats]);
+
+  const[formdataTransfer, setFormdataTransfer]=useState(initialFormData2);
+
+  useEffect(() => {
+    setFormdataTransfer((prevData) => ({
+      ...prevData,
+      showId: formData.showId,
+      movieName: formData.movieName,
+      screenName: formData.screenName,
+      theatreName: formData.theatreName,
+      cityName: formData.cityName,
+      startTime: formData.startTime,
+      selectedSeats: selectedSeats.map(seat => ({
+        id: seat.id,
+        seatNumber: seat.seatNumber,
+        category: {
+          id: seat.category.id,
+          categoryName: seat.category.categoryName
+        },
+        price: seat.price
+      })),
+      totalPrice: totalPrice
+    }));
+  }, [formData, selectedSeats, totalPrice]);
+  
+
+  const navigate = useNavigate();
+  const handleProceedClick=()=>{
+    navigate(`/home/movie/payment`, { state: {formdataTransfer} });
+  }
+
 
 
   return (
@@ -179,7 +219,7 @@ const SeatLayout = () => {
 
         <div className="flex flex-row gap-4 items-center justify-center fixed bottom-0 left-0 w-full bg-gray-800 text-white p-4">
           <div className='text-xl font-bold'>Pay Rs. {totalPrice}</div>
-          <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-lg w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Proceed</button>
+          <button type="submit" onClick={handleProceedClick} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-lg w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Proceed</button>
         </div>
 
       </div>
