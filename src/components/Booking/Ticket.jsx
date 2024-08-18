@@ -1,4 +1,6 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom';
+import ticketPageImage from './ticketPageImage.jpg';
 const initialFormData = {
 
     "bookingId": "",
@@ -6,31 +8,62 @@ const initialFormData = {
     "theatre": "",
     "screen": "",
     "seats": [],
-    "seartTime": "",
+    "startTime": "",
 
 }
 
 const Ticket = () => {
-
+    const location = useLocation();
+    const prevPageData = location.state?.ticket;
     const [bookingDetails, setBookingDetails] = useState(initialFormData);
 
+    useEffect(() => {
+        setBookingDetails(prevPageData)
+        console.log(bookingDetails)
+    }, [])
+
+    useEffect(() => {
+        if (bookingDetails) {
+            console.log(bookingDetails)
+        }
+    }, [bookingDetails])
 
     const handlePrint = () => {
         window.print();
     };
 
 
+
+
+      const customStyles = {
+        border: '50px solid #faf5f4',  // Customize the border width and color
+        backgroundColor: '#faf5f4',    // Customize the background color
+        borderRadius: '20px'
+      };
+
     return (
-        <div className='flex flex-col justify-center items-center min-h-screen'>
-            <div className="flex items-center flex-col w-3/4 min-h-screen bg-slate-200">
+        <div className='flex flex-col justify-center items-center min-h-screen' style={{
+            backgroundImage: `url(${ticketPageImage})`, // Use the imported image here
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            
+        }}>
+            <div className="flex items-center flex-col w-1/5 h-1/4" style={customStyles}>
                 <p className="mb-4 text-lg font-medium">Your Ticket has been successfully booked.</p>
                 <div className="bg-red-300 p-6 rounded-lg shadow-lg w-80">
                     <div className="text-left text-gray-700 mb-6">
                         <p><strong>Booking ID:</strong> {bookingDetails.bookingId}</p>
-                        <p><strong>Movie:</strong> {bookingDetails.movie}</p>
-                        <p><strong>Theatre:</strong> {bookingDetails.theatre}</p>
-                        <p><strong>Screen:</strong> {bookingDetails.screen}</p>
-                        <p><strong>Seats:</strong> {bookingDetails.seats.join(', ')}</p>
+                        <p><strong>Movie:</strong> {bookingDetails.movieName}</p>
+                        <p><strong>Theatre:</strong> {bookingDetails.theatreName}</p>
+                        <p><strong>Screen:</strong> {bookingDetails.screenName}</p>
+                        <p><strong>Seats: </strong>
+                        {bookingDetails.bookedSeats && bookingDetails.bookedSeats.map((seat, seatIndex) => (
+                            <span key={seatIndex}>
+                                {seat.seatNumber}
+                                {seatIndex < bookingDetails.bookedSeats.length - 1 && ', '}
+                            </span>
+
+                        ))} </p>
                         <p><strong>Start Time:</strong> {bookingDetails.startTime}</p>
                     </div>
                     <div className="flex items-center justify-center bg-slate-500 rounded-lg p-6 shadow-inner">

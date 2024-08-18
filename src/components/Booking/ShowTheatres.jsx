@@ -22,7 +22,7 @@ const initialShowTheatreFormData = {
 const ShowTheatres = () => {
   // Get today's date in YYYY-MM-DD format
   //const today = new Date().toISOString().split('T')[0];
-  const today = new Date('2024-08-15').toISOString().split('T')[0];
+  const today = new Date('2024-08-31').toISOString().split('T')[0];
 
   const [showTheatreFormData, setShowTheatreFormData] = useState(initialShowTheatreFormData);
   const [selectedDate, setSelectedDate] = useState(today); 

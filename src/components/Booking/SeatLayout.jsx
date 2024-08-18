@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { json, useLocation, useNavigate } from 'react-router-dom';
-import { getData } from '../../api-integration/api';
+import { getData, postData } from '../../api-integration/api';
 
 const initialFormData = {
   "showId": null,
@@ -29,7 +29,8 @@ const initialFormData = {
               },
               "booking": null,
               "price": null,
-              "booked": false
+              "booked": false,
+              "locked": false
             }
           ]
         }
@@ -38,15 +39,16 @@ const initialFormData = {
   ]
 }
 
-const initialFormData2 ={
+const initialFormData2 = {
   "showId": null,
   "movieName": "",
   "screenName": "",
   "theatreName": "",
   "cityName": "",
   "startTime": "",
-  "selectedSeats":[],
-  "totalPrice":""
+  "selectedSeats": [],
+  "totalPrice": "",
+  "sessionId":""
 }
 
 const SeatLayout = () => {
@@ -107,23 +109,23 @@ const SeatLayout = () => {
 
   useEffect(() => {
     console.log(JSON.stringify(selectedSeats));
-    
+
     let p = 0;
-    
-    selectedSeats.forEach(function(showSeat) {
+
+    selectedSeats.forEach(function (showSeat) {
       let x = showSeat.price;
       p = p + x;
     });
-    
-    setTotalPrice(p);
-    console.log("Price: "+totalPrice)
-  
-  }, [selectedSeats]);
 
-  const[formdataTransfer, setFormdataTransfer]=useState(initialFormData2);
+    setTotalPrice(p);
+    console.log("Price: " + totalPrice)
+
+  }, [selectedSeats]);
+  const [formdataTransfer, setFormdataTransfer] = useState(initialFormData2);
+  const [sessionId1, setSessionId1] = useState('');
 
   useEffect(() => {
-    setFormdataTransfer((prevData) => ({
+    setFormdataTransfer(prevData => ({
       ...prevData,
       showId: formData.showId,
       movieName: formData.movieName,
@@ -131,6 +133,7 @@ const SeatLayout = () => {
       theatreName: formData.theatreName,
       cityName: formData.cityName,
       startTime: formData.startTime,
+      sessionId: sessionId1,
       selectedSeats: selectedSeats.map(seat => ({
         id: seat.id,
         seatNumber: seat.seatNumber,
@@ -140,15 +143,21 @@ const SeatLayout = () => {
         },
         price: seat.price
       })),
-      totalPrice: totalPrice
+      totalPrice: totalPrice,
+      
     }));
-  }, [formData, selectedSeats, totalPrice]);
-  
+  }, [formData, selectedSeats, totalPrice, sessionId1]);
 
   const navigate = useNavigate();
-  const handleProceedClick=()=>{
-    navigate(`/home/movie/payment`, { state: {formdataTransfer} });
-  }
+  const handleProceedClick = async () => {
+    try {
+      navigate(`/home/movie/payment`, { state: { formdataTransfer} });
+    } catch (error) {
+      console.error('Error during proceed:', error);
+    }
+  };
+
+
 
 
 
@@ -186,28 +195,35 @@ const SeatLayout = () => {
 
 
         </div>
-
         <div>
           {formData.categSeatsList.map((categSeat, categIndex) => (
             <div key={categIndex} className="categ-seat flex flex-col gap-3 mb-4">
-              <h3 className='content-center mt-5'>Rs. {categSeat.categPrice.price}  {categSeat.categPrice.categoryName}</h3>
+              <h3 className='content-center mt-5'>Rs. {categSeat.categPrice.price} {categSeat.categPrice.categoryName}</h3>
               {categSeat.rowVsSeats.map((rowVsSeat, rowIndex) => (
                 <div key={rowIndex} className="row-vs-seat flex flex-row gap-4 w-full text-center">
                   <h4 className='w-16 items-center text-center content-center'>{rowVsSeat.row}</h4>
-                  {rowVsSeat.showSeats.map((showSeat, seatIndex) => (
-                    <div key={seatIndex}
-                      className={`p-2 w-12 border border-gray-400 rounded hover:bg-red-900 text-center cursor-pointer 
-                  ${showSeat.booked ? 'bg-red-500' : selectedSeats.find((s) => s.id === showSeat.id) ? 'bg-red-300' : 'bg-white'}`}
-                      onClick={() => handleSeatClick(showSeat)}>
-                      <p>{showSeat.seatNumber.substring(1)}</p>
+                  {rowVsSeat.showSeats.map((showSeat, seatIndex) => {
+                    const isDisabled = showSeat.booked || showSeat.locked;
+                    const seatClass = `p-2 w-12 border border-gray-400 rounded text-center cursor-pointer 
+              ${isDisabled ? 'bg-gray-700 text-white opacity-30 cursor-not-allowed'
+                        : selectedSeats.find((s) => s.id === showSeat.id) ? 'bg-blue-300' : 'bg-white'}`;
 
-                    </div>
-                  ))}
+                    return (
+                      <div
+                        key={seatIndex}
+                        className={seatClass}
+                        onClick={!isDisabled ? () => handleSeatClick(showSeat) : undefined}
+                      >
+                        <p>{showSeat.seatNumber.substring(1)}</p>
+                      </div>
+                    );
+                  })}
                 </div>
               ))}
             </div>
           ))}
         </div>
+
 
 
 
@@ -219,8 +235,16 @@ const SeatLayout = () => {
 
         <div className="flex flex-row gap-4 items-center justify-center fixed bottom-0 left-0 w-full bg-gray-800 text-white p-4">
           <div className='text-xl font-bold'>Pay Rs. {totalPrice}</div>
-          <button type="submit" onClick={handleProceedClick} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-lg w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Proceed</button>
+          <button
+            type="submit"
+            onClick={handleProceedClick}
+            className={`text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-lg w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ${selectedSeats.length === 0 ? 'opacity-50 cursor-not-allowed' : ''}`}
+            disabled={selectedSeats.length === 0}
+          >
+            Proceed
+          </button>
         </div>
+
 
       </div>
     </div>
