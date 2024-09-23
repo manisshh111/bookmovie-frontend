@@ -62,7 +62,7 @@ const Homepage = () => {
   return (
 
     <div className='flex justify-center  min-h-screen'>
-      <div className="flex  items-center flex-col w-3/4 min-h-screen bg-red-800">
+      <div className="flex  items-center flex-col w-full min-h-screen bg-[#F1EFEF]">
         <div className='w-40'>
 
           <select
@@ -84,16 +84,15 @@ const Homepage = () => {
         </div>
 
 
-        <div className='grid grid-cols-4 gap-4 w-full p-10'>
+        <div className='grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 w-full p-10 '>
 
           {movies.map((movie) => (
             <ShowMovieCard key={movie.id} movie={movie} cityId={selectedCityOption} />
           ))}
 
-
-
-
         </div>
+
+
       </div>
     </div>
   )

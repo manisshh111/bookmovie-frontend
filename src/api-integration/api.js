@@ -1,13 +1,13 @@
 import axios from 'axios';
 
-// const BASE_URL = 'http://localhost:5459/api/v1';
-const BASE_URL = 'ec2-13-201-186-210.ap-south-1.compute.amazonaws.com:5459/api/v1';
+const BASE_URL = 'https://bookmovie-v1-0.onrender.com/api/v1';
 
 const api = axios.create({
   baseURL: BASE_URL,
   headers: {
     'Content-Type': 'application/json',
   },
+
 });
 
 export const getData = async (endpoint) => {

@@ -163,8 +163,8 @@ const SeatLayout = () => {
 
   return (
     <div className='flex justify-center min-h-screen'>
-      <div className="flex items-center flex-col w-3/4 min-h-screen bg-white">
-        <div className='flex flex-col gap-1 bg-black w-full text-white items-center justify-center text-lg'>
+      <div className="flex items-center flex-col w-full min-h-screen bg-white">
+        <div className='flex flex-col gap-1 bg-[#A04747] w-full text-white items-center justify-center text-lg'>
           <div className='flex flex-row gap-1'>
             <div className='font-bold text-3xl hover:text-green-200'>
               {formData.movieName}
@@ -195,16 +195,16 @@ const SeatLayout = () => {
 
 
         </div>
-        <div>
+        <div className='overflow-x-auto'>
           {formData.categSeatsList.map((categSeat, categIndex) => (
             <div key={categIndex} className="categ-seat flex flex-col gap-3 mb-4">
               <h3 className='content-center mt-5'>Rs. {categSeat.categPrice.price} {categSeat.categPrice.categoryName}</h3>
               {categSeat.rowVsSeats.map((rowVsSeat, rowIndex) => (
-                <div key={rowIndex} className="row-vs-seat flex flex-row gap-4 w-full text-center">
+                <div key={rowIndex} className="row-vs-seat flex flex-row gap-2 w-full text-center">
                   <h4 className='w-16 items-center text-center content-center'>{rowVsSeat.row}</h4>
                   {rowVsSeat.showSeats.map((showSeat, seatIndex) => {
                     const isDisabled = showSeat.booked || showSeat.locked;
-                    const seatClass = `p-2 w-12 border border-gray-400 rounded text-center cursor-pointer 
+                    const seatClass = `p-0.5 w-8 border border-gray-400 rounded text-center cursor-pointer 
               ${isDisabled ? 'bg-gray-700 text-white opacity-30 cursor-not-allowed'
                         : selectedSeats.find((s) => s.id === showSeat.id) ? 'bg-blue-300' : 'bg-white'}`;
 

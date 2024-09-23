@@ -35,12 +35,12 @@ const handleClick = () =>{
 
 
   return (
-    <div onClick={handleClick} className='w-full flex flex-col h-96 transform transition-transform duration-300 hover:scale-105 hover:shadow-lg'>
+    <div onClick={handleClick} className='w-full flex flex-col h-65 transform transition-transform duration-300 hover:scale-105 hover:shadow-lg'>
      <div className='h-5/6 bg-zinc-500'>
-     <img src={movie.posterImageUrl} alt={movie.name} className='w-full h-full object-cover' />
+     <img src={movie.posterImageUrl} alt={movie.name} className='w-full h-full object-fill' />
      </div>
     
-     <div className='flex flex-row gap-16 items-center justify-center bg-black text-white'>
+     <div className='flex flex-row gap-5 items-center justify-center bg-[#295F98] text-white'>
         <p> {movie.duration} minutes</p>
         <p>{movie.rating}/10</p>
      </div>

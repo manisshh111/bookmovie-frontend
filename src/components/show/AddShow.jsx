@@ -27,6 +27,7 @@ const AddShow = () => {
 
     let [formdata, setFormdata] = useState(initialFormdata);
     let [theatreId, setTheatreId] = useState(initialFormdata.theatreId);
+    let [successMessage, setSuccessMessage] = useState('');
   
     useEffect(() => {
       console.log(formdata)
@@ -45,6 +46,16 @@ const AddShow = () => {
       try {
         const res = await postData("show/addShows", formdata);
         console.log("Response: " + JSON.stringify(res));
+
+
+        setSuccessMessage("Show created successfully!");
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
+
+
+
+
       } catch (error) {
         console.error("Error submitting data: ", error);
       }
@@ -256,7 +267,11 @@ const handleTheatreOptionsChange = (event) => {
         <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
        
       </form>
-
+      {successMessage && (
+          <div className="text-green-500 font-semibold mt-4">
+            {successMessage}
+          </div>
+        )}
       <div className='w-1/2'>
 
       </div>

@@ -137,7 +137,8 @@ const SelectSeat = () => {
                   value={seat}
                   onClick={() => handleSeatClick(seat)}
                 >
-                  {seat.seatNumber}
+                  x
+                 <p>{seat.seatNumber}</p> 
                 </div>
               ))}
             </div>
